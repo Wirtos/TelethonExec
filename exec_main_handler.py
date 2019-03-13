@@ -70,13 +70,12 @@ async def exc_handler(event: events.NewMessage.Event):
             result = 'Success'
         elif rprint_res and result is not None:
             result = f"{rprint_res}\n{result}"
+            rprint.flush()
         elif rprint_res:
             result = rprint_res
+            rprint.flush()
         elif result:
             result = str(result)
-        elif rprint_res:
-            result = rprint_res
-
         if arguments_state['d']:
             await event.delete()
             return
@@ -122,7 +121,7 @@ async def exc_handler(event: events.NewMessage.Event):
     result = html.escape(result)
     text = '<b>{exec_name}{{:</b>\n<pre>{input}</pre>\n<b>{time}</b>\n<pre>{res}</pre>'.format(
         exec_name=exec_name,
-        time="Result{{ in {}".format(tm) if arguments_state.get('t') else 'Result{{:',
+        time="Result{{ in {}".format(tm) if arguments_state.get('t') else 'Result{:',
         input=exec_input,
         res=result)
     try:
