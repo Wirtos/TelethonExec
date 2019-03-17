@@ -17,10 +17,8 @@ exec_name = 'Exec'
 exec_cmd = '!exc'
 message_match = f'^{exec_name}\s?(.*){{:|^{exec_cmd}'
 
-re_one = re.compile(f'^{exec_cmd}\s?(.*?)?\s?\n(.*)',
-                      flags=re.MULTILINE | re.DOTALL)
-re_two = re.compile(f'^{exec_name}\s?(.*?){{:\n(.*?)(Result|Processing...){{',
-                      flags=re.MULTILINE | re.DOTALL)
+re_one = re.compile(f'^{exec_cmd}\s*(-.+?)?\s*\n(.*)', flags=re.DOTALL)
+re_two = re.compile(f'^{exec_name}\s*(-.+?)?\s*{{:\n(.*?)(Result|Processing...){{', flags=re.DOTALL)
 
 client = TelegramClient('tl-exec', api_hash=api_hash, api_id=api_id)
 
