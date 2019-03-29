@@ -72,7 +72,7 @@ async def exc_handler(event: events.NewMessage.Event):
         elif rprint_res:
             result = rprint_res
             rprint.flush()
-        elif result:
+        elif result is not None:
             result = str(result)
         if arguments_state['d']:
             await event.delete()
