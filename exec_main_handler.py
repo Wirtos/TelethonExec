@@ -42,7 +42,9 @@ async def exc_handler(event: events.NewMessage.Event):
         'r': None,  # restart script one more time
         't': None,  # show execution time
         'd': None,  # delete message after executing script
+        'o': None,  # use rprint as stdout
     }
+
     case_one = re_one.findall(event.raw_text)
     case_two = re_two.findall(event.raw_text)
     if case_one:
@@ -61,6 +63,8 @@ async def exc_handler(event: events.NewMessage.Event):
     except MessageIdInvalidError:
         pass
     st = time.process_time()
+    if arguments_state.get('o'):
+        sys.stdout = rprint
     try:
         result = await asyncexec(event, exec_input)
         rprint_res = str(rprint)
@@ -113,7 +117,8 @@ async def exc_handler(event: events.NewMessage.Event):
             result = ''
         result += f"{error_class} at line {line_number - 1 if line_number else '<unknown>'} of <string>: {detail}"
         rprint.flush()
-
+    if arguments_state.get('o'):
+        sys.stdout = sys.__stdout__
     en = time.process_time()
     tm = en - st
     result = html.escape(result)
