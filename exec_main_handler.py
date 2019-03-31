@@ -13,8 +13,8 @@ import logging
 api_id = 1111
 api_hash = 'os3294rawr.__owo'
 
-exec_name = 'Exec'
-exec_cmd = '!exc'
+exec_name = re.escape('Exec')
+exec_cmd = re.escape('!exc')
 message_match = f'^{exec_name}\s?(.*){{:|^{exec_cmd}'
 
 re_one = re.compile(f'^{exec_cmd}\s*(-.+?)?\s*\n(.*)', flags=re.DOTALL)
